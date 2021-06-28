@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{ message }} <span class="close">&times;</span>
+                </div>
+            {% endfor %}
+        </div>
+{% endif %}
+
+<div class="container mt-5 mb-5">
+<div class="col-lg-4 offset-lg-4">
+<h2 class="text-center">Registration </h2>
+<br>
+<form action="" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <label for="id_last_name">First name:</label>
+        <input type="text" name="first_name" class="form-control" id="id_last_name">
+    </div>
+    <p>
+        <label for="id_last_name">Last name:</label>
+        <input type="text" name="last_name" class="form-control" id="id_last_name">
+    </p>
+    <p>
+        <label for="id_last_name"> Email:</label>
+        <input type="email" name="email" class="form-control" id="id_last_name">
+    </p>
+    <p>
+        <label for="id_last_name"> Username:</label>
+        <input type="text" name="username" class="form-control" id="id_last_name">
+    </p>
+    <p>
+        <label for="id_last_name"> Password 1</label>
+        <input type="password" name="password1" class="form-control" id="id_last_name">
+    </p>
+    <p>
+        <label for="id_last_name"> Password 2</label>
+        <input type="password" name="password2" class="form-control" id="id_last_name">
+    </p>
+    <div class="text-center p-3">
+    <button type="submit" class="btn btn-primary pl-5 pr-5 pt-2 pb-2"> login </button>
+    </div>
+</form>
+</div>
+</div>
+
+{% endblock content %}

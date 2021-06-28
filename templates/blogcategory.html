@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+	{% if messages %}
+        <div class="messages text-center">
+            {% for message in messages %}
+                <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{ message }} <span class="close">&times;</span>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+    <!-- bradcam_area  -->
+    <div class="bradcam_area bradcam_bg_4">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="bradcam_text text-center">
+                        <h3>blog - {{cate.name}}</h3>
+                        <p>Pixel perfect design with awesome contents</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ bradcam_area  -->
+
+
+    <!--================Blog Area =================-->
+    <section class="blog_area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="blog_left_sidebar">
+                        {% for p in post %}
+                        <article class="blog_item">
+                            <div class="blog_item_img">
+                                <img class="card-img rounded-0" src="{{p.image.url}}" alt="">
+                                <a href="#" class="blog_item_date">
+                                    <h3>15</h3>
+                                    <p>Jan</p>
+                                </a>
+                            </div>
+
+                            <div class="blog_details">
+                                <a class="d-inline-block" href="{% url 'blogsingle' id=p.id %}">
+                                    <h2>{{p.title}}</h2>
+                                </a>
+                                <p>That dominion stars lights dominion divide years for fourth have don't stars is that
+                                    he earth it first without heaven in place seed it second morning saying.</p>
+                                <ul class="blog-info-link">
+                                    <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
+                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                </ul>
+                            </div>
+                        </article>
+                        {% endfor %}
+
+                        <nav class="blog-pagination justify-content-center d-flex">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    {% if post.has_previous %}
+                                    <a href="?page=1" class="page-link" aria-label="Previous">
+                                        Fast
+                                    </a>
+                                    {% endif %}
+                                </li>
+                                <li class="page-item">
+                                    {% if post.has_previous %}
+                                    <a href="?page={{ post.previous_page_number }}" class="page-link" aria-label="Previous">
+                                        <i class="ti-angle-left"></i>
+                                    </a>
+                                    {% endif %}
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link">{{ post.number }}</a>
+                                </li>
+                                <li class="page-item">
+                                {% if post.has_next %}
+                                    <a href="?page={{ post.next_page_number }}" class="page-link" aria-label="Next">
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                {% endif %}
+                                </li>
+                                <li class="page-item">
+                                {% if post.has_next %}
+                                    <a href="?page={{ post.paginator.num_pages }}" class="page-link" aria-label="Next">
+                                        Last
+                                    </a>
+                                {% endif %}
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog_right_sidebar">
+                        <aside class="single_sidebar_widget search_widget">
+                            <img src="{% static 'img/banner3.jpg' %}" alt="">
+                        </aside>
+
+                        <aside class="single_sidebar_widget post_category_widget">
+                            <h4 class="widget_title">Category</h4>
+                            <ul class="list cat-list">
+                            {% for p in ppost %}
+                                <li>
+                                    <a href="{% url 'blogcategory' id=p.id %}" class="d-flex">
+                                        <p>{{p.name}}</p>
+                                        <p>({{p.blog_categorys.all.count}})</p>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </aside>
+
+                        <aside class="single_sidebar_widget popular_post_widget">
+                            <h3 class="widget_title">Recent Post</h3>
+                            {% for p in recentart %}
+                            <div class="media post_item">
+                                <img height="60px" src="{{p.image.url}}" alt="post">
+                                <div class="media-body">
+                                    <a href="{% url 'single' id=p.id %}">
+                                        <h3>{{p.name}}</h3>
+                                    </a>
+                                    <p>January 12, 2019</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            
+                        </aside>
+                    
+
+                        <aside class="single_sidebar_widget newsletter_widget">
+                            <h4 class="widget_title">Newsletter</h4>
+
+                            <form action="" method="POST">
+                                    {% csrf_token %}
+                                <div class="form-group">
+                                    <input name="email" type="email" class="form-control" onfocus="this.placeholder = ''"
+                                        onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
+                                </div>
+                                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                                    type="submit">Subscribe</button>
+                            </form>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================Blog Area =================-->
+
+   {% endblock content %}
